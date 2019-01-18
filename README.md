@@ -187,8 +187,12 @@ As funções implementadas realizam bem a rasterização das primitivas gráfica
 
 ## Referências
 
-http://letslearnbits.blogspot.com
-https://mundogeo.com/blog/2001/08/01/geometria-de-triangulos-e-poligonos/
-https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Conversion_between_barycentric_and_Cartesian_coordinates
-https://codeplea.com/triangular-interpolation
-https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/barycentric-coordinates
+DINIZ, Renato. Learning Bits. Disponível em <http://letslearnbits.blogspot.com>
+
+DAVIS, Clodoveu. "Geometria de Triângulos e Polígonos"; MundoGEO. Disponível em <https://mundogeo.com/blog/2001/08/01/geometria-de-triangulos-e-poligonos/>
+
+"Barycentric coordinate system"; Wikipedia. Disponível em <https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Conversion_between_barycentric_and_Cartesian_coordinates>
+
+WINKLE, Lewis Van. "Interpolating in a Triangle"; CodePlea. Disponível em <https://codeplea.com/triangular-interpolation>
+
+"Ray Tracing: Rendering a Triangle"; Scratchapixel. Disponível em <https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/barycentric-coordinates>
