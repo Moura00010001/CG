@@ -136,7 +136,7 @@ Com checagem | Sem checagem
 
 ### PreencheTriangulo()
 
-Utilizando coordenadas baricêntricas podemos verificar se um ponto pertence ou não a um triângulo. "Parte-se do fato de que qualquer ponto P do triângulo pode ser definido a partir das coordenadas de seus três vértices, de modo que P = w1*P1 + w2*P2 + w3*P3, onde w1, w2 e w3 são números reais e w1 + w2 + w3 = 1 . Os coeficientes w1, w2 e w3 são denominados coordenadas baricêntricas de P em relação a P1, P2 e P3." - MundoGEO.
+Utilizando coordenadas baricêntricas podemos verificar se um ponto pertence ou não a um triângulo. "Parte-se do fato de que qualquer ponto P do triângulo pode ser definido a partir das coordenadas de seus três vértices, de modo que __P = w1*P1 + w2*P2 + w3*P3__, onde w1, w2 e w3 são números reais e __w1 + w2 + w3 = 1__ . Os coeficientes w1, w2 e w3 são denominados coordenadas baricêntricas de P em relação a P1, P2 e P3." - MundoGEO.
 O seguinte sistema de equações é gerado:
 
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Sistema%20de%20equa%C3%A7%C3%B5es.png)
