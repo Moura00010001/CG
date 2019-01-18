@@ -147,7 +147,7 @@ Reorganizando várias vezes podemos resolver w1, w2 e w3 para qualquer ponto com
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/w1%2C%20w2%20e%20w3.png)
 
 
-Com as coordenadas do pixel a ser analisado e dos pixels que representam os vértices do triângulo, calcula-se as coordenadas baricêntricas. As três coordenadas devem ser positivas para o ponto pertencer ao interior do triângulo e se ao menos uma delas for negativa, o ponto estará fora dele.
+Com as coordenadas do pixel a ser analisado e dos pixels que representam os vértices do triângulo, calcula-se as coordenadas baricêntricas. As três coordenadas devem ser positivas para o ponto pertencer ao interior do triângulo e se ao menos uma delas for negativa, o ponto estará fora.
 
 #### Trecho de código:
 ~~~c
