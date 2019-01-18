@@ -55,7 +55,7 @@ O algoritmo de rasterização de linhas proposto na atividade para ser implement
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/DrawLine()%20-%20Bresenham%20puro.png)
 
 
-Entretanto, o algoritmo foi generalizado a partir dos casos que aparecem na tabela a seguir, que também contém os respectivos tratamentos necessários para a rasterização de retas com ângulos entre 45° e 360°. Essa generalização atém-se ao balanço do comportamento de dx e dy nos octantes.
+Entretanto, o algoritmo foi generalizado a partir dos casos que aparecem na tabela a seguir, que também contém os respectivos tratamentos necessários para a rasterização de retas com ângulos entre 45° e 360°. Essa generalização leva em consideração o balanço do comportamento de dx e dy nos octantes.
 
 #### Tabela:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png)
