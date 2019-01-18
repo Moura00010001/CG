@@ -113,7 +113,7 @@ Na rasterização do triângulo é utilizado as coordenadas dos pixels passados 
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/DrawTriangle()%20-%20Arestas%20do%20tri%C3%A2ngulo.png)
 
 
-Para evitar problemas com erros de Falha de segmentação ou formas que parecem espelhadas devido ao acesso indefinido aos índices do array que simula a memória de vídeo, realiza-se uma checagem nos campos x e y para garantir que o acesso se restrinja as áreas que representam efetivamente os pixels desejados na janela de exibição.
+Para evitar problemas com formas que parecem cortadas ou com erros de Falha de segmentação devido ao acesso indefinido aos índices do array que simula a memória de vídeo, realiza-se uma checagem nos campos x e y para garantir que o acesso se restrinja as áreas que representam efetivamente os pixels desejados na janela de exibição.
 
 #### Trecho de código:
 ~~~c
