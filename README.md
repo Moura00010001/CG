@@ -1,14 +1,10 @@
-#Rasterização de primitivas
+# Rasterização de primitivas
 
-##Atividade
+## Atividade
 
-Esta atividade foi realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com
-os algoritmos de rasterização de primitivas utilizados em computação gráfica. O trabalho foi desenvolvido sobre um framework que simula
-acesso direto à memória de vídeo, implementado com OpenGL, feito e disponibilizado pelo professor.
-O objetivo é implementar algoritmos para a rasterização de pontos e linhas, sendo que a cor de cada linha deve ser obtida através da
-interpolação linear das cores de seu vértice inicial e final.
+Esta atividade foi realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com os algoritmos de rasterização de primitivas utilizados em computação gráfica. O trabalho foi desenvolvido sobre um framework que simula acesso direto à memória de vídeo, implementado com OpenGL, feito e disponibilizado pelo professor. O objetivo é implementar algoritmos para a rasterização de pontos e linhas, sendo que a cor de cada linha deve ser obtida através da interpolação linear das cores de seu vértice inicial e final.
 
-##Implementação
+## Implementação
 
 O padrão de cores RGBA é usado em cada pixel e seus canais são representados por 1 byte cada.
 
