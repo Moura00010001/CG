@@ -129,9 +129,9 @@ Para evitar problemas com formas que parecem cortadas ou com erros de Falha de s
 ~~~	
 
 
-Sem checagem | Com checagem
+Com checagem | Sem checagem
 ------------ | ------------
-![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Sem%20checagem.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Com%20checagem.png)
+![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Com%20checagem.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Sem%20checagem.png)
 
 
 ### PreencheTriangulo()
