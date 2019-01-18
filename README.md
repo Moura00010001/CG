@@ -72,7 +72,7 @@ Como consequência, pode-se rasterizar linhas em todas as direções do plano ca
 
 ### InterpolaCor()
 
-Na transição de cor entre os vértices de cada linha foi utilizado uma porcentagem que ajudará na informação da quantiade de cor que o novo pixel que é aceso durante as iterações do Bresenham deverá conter do pixel final. Essa porcentagem é calculada pela (distância do pixel atual que será aceso até o pixel final) dividido pela (distância do pixel inicial ao pixel final, que dá o comprimento da reta).
+Na transição de cor entre os vértices de cada linha foi utilizado uma porcentagem que ajudará na informação da quantidade de cor que o novo pixel que é aceso durante as iterações do Bresenham deverá conter do pixel final. Essa porcentagem é calculada pela (distância do pixel atual que será aceso até o pixel final) dividido pela (distância do pixel inicial ao pixel final, que dá o comprimento da reta).
 
 #### Trecho de código:
 ~~~c
