@@ -8,7 +8,8 @@ Esta atividade foi realizada para a disciplina de Introdução à Computação G
 
 O padrão de cores RGBA é usado em cada pixel e seus canais são representados por 1 byte cada.
 
-####Trecho de código:
+#### Trecho de código:
+	
 	typedef struct{
 
     		unsigned char R, G, B, A;
@@ -24,11 +25,13 @@ O padrão de cores RGBA é usado em cada pixel e seus canais são representados 
 
 O algoritmo de Bresenham foi generalizado e utilizado para geração de linhas nos oito octantes do sistema cartesiano.
 
-###PutPixel()
+### PutPixel()
+
 Tendo acesso direto à memória, concedido pelo framework através do ponteiro FBptr que simula a escrita no Color Buffer, cada pixel pode ser aceso na parte da tela especificada pelas suas coordenadas X e Y e ter a intensidade de seus canais de cor alterados. Tomando W como a largura total da janela de exibição, pode-se achar a posição inicial de um pixel no Color Buffer (componente R) com o auxílio da fórmula:
 	4*(X + Y*W)
 
-####Trecho de código:	
+#### Trecho de código:	
+	
 	// Posição do primeiro byte de cada pixel
     	componente = (pixel->x*4) + (pixel->y*IMAGE_WIDTH*4);
 
