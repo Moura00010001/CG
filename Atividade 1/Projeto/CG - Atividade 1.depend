@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1547761695 source:c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.cpp
+	"main.h"
+
+1545658931 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.h
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<iostream>
+	"definitions.h"
+	"mygl.h"
+	<stdlib.h>
+
+1354148918 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\definitions.h
+
+1547665059 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\mygl.h
+	"definitions.h"
+	<math.h>
+
