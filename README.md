@@ -43,31 +43,32 @@ Tendo acesso direto à memória, concedido pelo framework através do ponteiro F
     	FBptr[++componente] = pixel->cor.A; // Componente A do pixel
 ~~~	
 
-#### Printscreen: PutPixel() - Rasterização dos pontos
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/PutPixel()%20-%20Rasteriza%C3%A7%C3%A3o%20dos%20pontos.png)
+
 
 ### DrawLine()
 
 O algoritmo de rasterização de linhas proposto na atividade para ser implementado, como já foi citado anteriormente, foi o algoritmo de Bresenham. Considerado muito eficiente em razão de suas operações aritméticas com números inteiros, ele se limita a desenhar retas apenas no 1º octante, com ângulos entre 0 e 45°.
 
-#### Printscreen: DrawLine() - Bresenham puro
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/DrawLine()%20-%20Bresenham%20puro.png)
+
 
 Entretanto, o algoritmo foi generalizado a partir dos casos que aparecem na tabela a seguir, que também contém os respectivos tratamentos necessários para a rasterização de retas com ângulos entre 45° e 360°. Essa generalização atém-se ao balanço do comportamento de dx e dy nos octantes.
 
 #### Tabela:
-
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png)
 
 #### Octantes:
-
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Octantes.png)
+
 
 Como consequência, pode-se rasterizar linhas em todas as direções do plano cartesiano.
 
-#### Printscreen: DrawLine() - 8 octantes
-
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/DrawLine()%20-%208%20octantes.png)
+
 
 ### InterpolaCor()
 
@@ -78,6 +79,7 @@ Na transição de cor entre os vértices de cada linha foi utilizado uma porcent
 	tPixel InterpolaCor(float p, tPixel* pixel1, tPixel* pixel2){
 
     		tPixel pixel;
+		
     		pixel.cor.R = p*(pixel1->cor.R) + (1 - p)*(pixel2->cor.R);
     		pixel.cor.G = p*(pixel1->cor.G) + (1 - p)*(pixel2->cor.G);
     		pixel.cor.B = p*(pixel1->cor.B) + (1 - p)*(pixel2->cor.B);
@@ -88,9 +90,9 @@ Na transição de cor entre os vértices de cada linha foi utilizado uma porcent
 	}
 ~~~	
 
-#### Printscreen: InterpolaCor() - Interpolação de cores
-
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/InterpolaCor()%20-%20Interpola%C3%A7%C3%A3o%20de%20cores.png)
+
 
 ### DrawTriangle()
 
@@ -107,9 +109,9 @@ Na rasterização do triângulo é utilizado as coordenadas dos pixels passados 
 	}
 ~~~	
 
-#### Printscreen: DrawTriangle() - Arestas do triângulo
-
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/DrawTriangle()%20-%20Arestas%20do%20tri%C3%A2ngulo.png)
+
 
 Para evitar problemas com erros de Falha de segmentação ou formas que parecem espelhadas devido ao acesso indefinido aos índices do array que simula a memória de vídeo, realiza-se uma checagem nos campos x e y para garantir que o acesso se restrinja as áreas que representam efetivamente os pixels desejados na janela de exibição.
 
@@ -119,34 +121,31 @@ Para evitar problemas com erros de Falha de segmentação ou formas que parecem 
        	   pixel->x > IMAGE_WIDTH || pixel->y > IMAGE_HEIGHT){
 
        		/* Tentativa inválida de acessar uma posição que não
-        		consta nos limites do sistema de coordenadas da janela*/
+        	consta nos limites do sistema de coordenadas da janela*/
 
        		return 1;
 
     	}
 ~~~	
 
-####Printscreen: Falha de segmentação - Sem checagem
-####Printscreen: Falha de segmentação - Com checagem
 
 Sem checagem | Com checagem
 ------------ | ------------
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Sem%20checagem.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Falha%20de%20segmenta%C3%A7%C3%A3o%20-%20Com%20checagem.png)
+
 
 ### PreencheTriangulo()
 
 Utilizando coordenadas baricêntricas podemos verificar se um ponto pertence ou não a um triângulo. "Parte-se do fato de que qualquer ponto P do triângulo pode ser definido a partir das coordenadas de seus três vértices, de modo que P = w1*P1 + w2*P2 + w3*P3, onde w1, w2 e w3 são números reais e w1 + w2 + w3 = 1 . Os coeficientes w1, w2 e w3 são denominados coordenadas baricêntricas de P em relação a P1, P2 e P3." - MundoGEO.
 O seguinte sistema de equações é gerado:
 
-#### Printscreen: Sistema de equações
-
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Sistema%20de%20equa%C3%A7%C3%B5es.png)
+
 
 Reorganizando várias vezes podemos resolver w1, w2 e w3 para qualquer ponto com as seguintes equações:
 
-#### Printscreen : w1, w2 e w3
-
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/w1%2C%20w2%20e%20w3.png)
+
 
 Com as coordenadas do pixel a ser analisado e dos pixels que representam os vértices do triângulo, calcula-se as coordenadas baricêntricas. As três coordenadas devem ser positivas para o ponto pertencer ao interior do triângulo e se ao menos uma delas for negativa, o ponto estará fora dele.
 
@@ -159,9 +158,9 @@ Com as coordenadas do pixel a ser analisado e dos pixels que representam os vér
 	}
 ~~~
 
-#### Printscreen: Coordenadas baricêntricas
-
+#### Coordenadas baricêntricas
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Coordendas%20baric%C3%AAntricas.png)
+
 
 A função PreencheTriangulo() percorre todos os pixels da janela de exibição e acende os que estão dentro do triângulo. A interpolação das cores é feita a partir da soma da multiplicação das coordenadas baricêntricas por cada componente da cor dos pixels que representam os vértices do triângulo.
 
@@ -177,10 +176,19 @@ A função PreencheTriangulo() percorre todos os pixels da janela de exibição 
         pixel.cor.A = (char) cor;
 ~~~
 
-#### Printscreen: PreencheTriangulo() - Face do triângulo
-
+#### Printscreen:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/PreencheTriangulo()%20-%20Face%20do%20tri%C3%A2ngulo.png)
+
 
 ## Resultados
 
 As funções implementadas realizam bem a rasterização das primitivas gráficas propostas pela atividade mas poderiam ser mais eficientes com a possibilidade de evitar os cálculos da porcentagem e da distância entre o próximo pixel a ser aceso até o pixel final da reta utilizados na função InterpolaCor() e de outra abordagem no preenchimento do triângulo, sem coordenadas baricêntricas, talvez com uma variação do algoritmo de Bresenham desenhando linhas horizontais para preencher o triângulo.
+
+
+## Referências
+
+http://letslearnbits.blogspot.com
+https://mundogeo.com/blog/2001/08/01/geometria-de-triangulos-e-poligonos/
+https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Conversion_between_barycentric_and_Cartesian_coordinates
+https://codeplea.com/triangular-interpolation
+https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/barycentric-coordinates
