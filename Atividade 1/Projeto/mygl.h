@@ -17,16 +17,10 @@ typedef struct{
 
 typedef struct{
 
-    int x, y; // Coordenadas na janela
+    int x, y;
     tRGBA cor;
 
 } tPixel;
-
-typedef struct{
-
-    float w1, w2, w3;
-
-} tCoordenadas;
 
 int PutPixel(tPixel* pixel){
 
@@ -37,14 +31,14 @@ int PutPixel(tPixel* pixel){
        pixel->x > IMAGE_WIDTH || pixel->y > IMAGE_HEIGHT){
 
        /* Tentativa inválida de acessar uma posição que não
-        consta nos limites do sistema de coordenadas da janela*/
+        consta no sistema de coordenadas da janela de exibição*/
 
        return 1;
 
     }
 
     // Posição do primeiro byte de cada pixel
-    componente = (pixel->x*4) + (pixel->y*IMAGE_WIDTH*4);
+    componente = 4*(pixel->x + pixel->y*IMAGE_WIDTH);
 
     FBptr[componente] = pixel->cor.R; // Componente R do pixel
     FBptr[++componente] = pixel->cor.G; // Componente G do pixel
@@ -58,6 +52,7 @@ int PutPixel(tPixel* pixel){
 tPixel InterpolaCor(float p, tPixel* pixel1, tPixel* pixel2){
 
     tPixel pixel;
+
     pixel.cor.R = p*(pixel1->cor.R) + (1 - p)*(pixel2->cor.R);
     pixel.cor.G = p*(pixel1->cor.G) + (1 - p)*(pixel2->cor.G);
     pixel.cor.B = p*(pixel1->cor.B) + (1 - p)*(pixel2->cor.B);
@@ -77,14 +72,14 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
 
     int dx = pixel2->x - pixel1->x;
     int dy = pixel2->y - pixel1->y;
-    int cAng = 0;
+    int cAng = 0; // Coeficiente angular
 
     int auxX, auxY;
 
     float dParcial;
     float dTotal = Distancia(pixel1, pixel2);
 
-    if(dx < 0){ // Caso ponto final < ponto inicial
+    if(dx < 0){
 
         DrawLine(pixel2, pixel1);
         return;
@@ -123,6 +118,7 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
                 pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
                 pixel.x = auxX;
                 pixel.y = auxY;
+
                 PutPixel(&pixel);
             }
 
@@ -145,6 +141,7 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
                 pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
                 pixel.x = auxX;
                 pixel.y = auxY;
+
                 PutPixel(&pixel);
             }
         }
@@ -170,6 +167,7 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
                 pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
                 pixel.x = auxX;
                 pixel.y = auxY;
+
                 PutPixel(&pixel);
             }
 
@@ -192,6 +190,7 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
                 pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
                 pixel.x = auxX;
                 pixel.y = auxY;
+
                 PutPixel(&pixel);
             }
         }
