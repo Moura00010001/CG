@@ -35,7 +35,7 @@ Tendo acesso direto à memória, concedido pelo framework através do ponteiro F
 #### Trecho de código:
 ~~~c
 	// Posição do primeiro byte de cada pixel
-    	componente = (pixel->x*4) + (pixel->y*IMAGE_WIDTH*4);
+    	componente = 4*(pixel->x + pixel->y*IMAGE_WIDTH);
 
     	FBptr[componente] = pixel->cor.R; // Componente R do pixel
     	FBptr[++componente] = pixel->cor.G; // Componente G do pixel
