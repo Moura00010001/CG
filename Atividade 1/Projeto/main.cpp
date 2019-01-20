@@ -108,7 +108,7 @@ void MyGlDraw(void)
     DrawLine(&pixel1, &pixel13); // Ângulo de 240 graus
     DrawLine(&pixel1, &pixel14); // Ângulo de 270 graus
 
-    // Sétino octante
+    // Sétimo octante
     pixel1 = {256, 256, {0, 0, 255, 255}}; // Pixel azul
     tPixel pixel15 = {384, 0, {0, 0, 255, 255}}; // Pixel azul
 
@@ -154,7 +154,7 @@ void MyGlDraw(void)
     DrawTriangle(&pixel1, &pixel2, &pixel3);
     PreencheTriangulo(&pixel1, &pixel2, &pixel3);
 
-    // Teste e Falha de segmentação
+    // Teste de Falha de segmentação
     /*
     tPixel pixel1 = {384, 384, {0, 255, 0, 255}}; // Pixel verde
     tPixel pixel2 = {768, 128, {0, 0, 255, 255}}; // Pixel azul
