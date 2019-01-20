@@ -18,7 +18,7 @@ O padrão de cores RGBA é usado em cada pixel e seus canais são representados 
 
 	typedef struct{
 
-    		int x, y; // Coordenadas na janela
+    		int x, y;
     		tRGBA cor;
 
 	} tPixel;
@@ -28,7 +28,7 @@ O algoritmo de Bresenham foi generalizado e utilizado para geração de linhas n
 
 ### int PutPixel(tPixel* pixel)
 
-Tendo acesso direto à memória, concedido pelo framework através do ponteiro FBptr que simula a escrita no Color Buffer, cada pixel pode ser aceso na parte da tela especificada pelas suas coordenadas X e Y e ter a intensidade de seus canais de cor alterados. Tomando W como a largura total da janela de exibição, pode-se achar a posição inicial de um pixel no Color Buffer (componente R) com o auxílio da fórmula:
+Tendo acesso direto à memória, concedido pelo framework através do ponteiro FBptr que simula a escrita no Color Buffer, cada pixel pode ser aceso na parte da tela especificada pelos seus campos x e y e ter a intensidade de seus canais de cor alterados. Tomando W como a largura total da janela de exibição, pode-se achar a posição inicial de um pixel no Color Buffer (componente R) com o auxílio da fórmula:
 
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Componente%20R.png)
 
@@ -76,18 +76,12 @@ Na transição de cor entre os vértices de cada linha foi utilizado uma porcent
 
 #### Trecho de código:
 ~~~c
-	tPixel InterpolaCor(float p, tPixel* pixel1, tPixel* pixel2){
-
-    		tPixel pixel;
+	tPixel pixel;
 		
-    		pixel.cor.R = p*(pixel1->cor.R) + (1 - p)*(pixel2->cor.R);
-    		pixel.cor.G = p*(pixel1->cor.G) + (1 - p)*(pixel2->cor.G);
-    		pixel.cor.B = p*(pixel1->cor.B) + (1 - p)*(pixel2->cor.B);
-    		pixel.cor.A = p*(pixel1->cor.A) + (1 - p)*(pixel2->cor.A);
-
-    		return pixel;
-
-	}
+    	pixel.cor.R = p*(pixel1->cor.R) + (1 - p)*(pixel2->cor.R);
+    	pixel.cor.G = p*(pixel1->cor.G) + (1 - p)*(pixel2->cor.G);
+    	pixel.cor.B = p*(pixel1->cor.B) + (1 - p)*(pixel2->cor.B);
+    	pixel.cor.A = p*(pixel1->cor.A) + (1 - p)*(pixel2->cor.A);
 ~~~	
 
 #### Printscreen:
@@ -117,7 +111,7 @@ Para evitar problemas com formas que parecem cortadas ou com erros de Falha de s
        	   pixel->x > IMAGE_WIDTH || pixel->y > IMAGE_HEIGHT){
 
        		/* Tentativa inválida de acessar uma posição que não
-        	consta nos limites do sistema de coordenadas da janela*/
+        	consta no sistema de coordenadas da janela de exibição*/
 
        		return 1;
 
