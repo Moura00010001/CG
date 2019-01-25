@@ -57,6 +57,10 @@ O algoritmo de rasterização de linhas proposto na atividade para ser implement
 
 Entretanto, o algoritmo foi generalizado a partir dos casos que aparecem na tabela a seguir, que também contém os respectivos tratamentos necessários para a rasterização de retas com ângulos entre 45° e 360°. Essa generalização leva em consideração o balanço do comportamento de dx e dy nos octantes.
 
+Tabela | Octantes
+------------ | ------------
+![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Octantes.png)
+
 #### Tabela:
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png)
 
