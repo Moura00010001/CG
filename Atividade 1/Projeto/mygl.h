@@ -2,8 +2,9 @@
 #define _MYGL_H_
 
 #include "definitions.h"
+#include <math.h> // Função sqrt()
 
-#include <math.h>
+#define ABS(x) ((x) < 0 ? -(x) : (x)) // Macro utilizada para calcular módulo
 
 //*****************************************************************************
 // Defina aqui as suas funções gráficas
@@ -47,7 +48,7 @@ int PutPixel(tPixel* pixel){
 
     return 0;
 
-}
+} // Fim da função PutPixel()
 
 tPixel InterpolaCor(float p, tPixel* pixel1, tPixel* pixel2){
 
@@ -72,131 +73,294 @@ void DrawLine(tPixel* pixel1, tPixel* pixel2){
 
     int dx = pixel2->x - pixel1->x;
     int dy = pixel2->y - pixel1->y;
-    int cAng = 0; // Coeficiente angular
-
-    int auxX, auxY;
+    int d, incr_e, incr_ne; // Respectivamente, variável de decisão, pixel E (East), pixel NE (Northeast)
+    int auxX, auxY; // Guardará a posição atual do próximo pixel a ser aceso
 
     float dParcial;
     float dTotal = Distancia(pixel1, pixel2);
-
-    if(dx < 0){
-
-        DrawLine(pixel2, pixel1);
-        return;
-    }
-
-    if(dy < 0)
-        cAng = -1;
-    else
-        cAng = 1;
-
-    int d;//, incr_e, incr_nee;
 
     tPixel pixel = *pixel1;
 
     PutPixel(&pixel);
 
-    // Escolha dos octantes
-    if(dx >= cAng*dy){ // m <= 1
+    // Primeiro octante, 0 < m < 1
+    if(dx >= 0 && dy >= 0 && ABS(dx) >= ABS(dy)){
 
-        if(dy < 0){ // Caso y2 < y1
-            d = 2*dy + dx;
-            while(pixel.x < pixel2->x){
+        d = 2*dy - dx;
+        incr_e = 2*dy;
+        incr_ne = 2*(dy - dx);
 
-                if(d < 0){ // Pixel E (East) escolhido
-                    d += 2*(dy + dx);
-                    pixel.x++;
-                    pixel.y--;
-                } else{ // Pixel NE (Northeast) escolhido
-                    d += 2*dy;
-                    pixel.x++; // Varia apenas no eixo x
-                }
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
 
-                auxX = pixel.x;
-                auxY = pixel.y;
-                dParcial = Distancia(&pixel, pixel2);
-                pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
-                pixel.x = auxX;
-                pixel.y = auxY;
+            if(d < 0){
+                d += incr_e;
+                pixel.x++;
 
-                PutPixel(&pixel);
+            } else{
+                d += incr_ne;
+                pixel.x++;
+                pixel.y++;
             }
 
-        } else{ // Caso y1 < y2
-            d = 2*dy - dx;
-            while(pixel.x < pixel2->x){
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
 
-                if(d < 0){ // Pixel E (East) escolhido
-                    d += 2*dy;
-                    pixel.x++; // Varia apenas no eixo x
-                } else{ // Pixel NE (Northeast) escolhido
-                    d += 2*(dy - dx);
-                    pixel.x++;
-                    pixel.y++;
-                }
+            PutPixel(&pixel);
 
-                auxX = pixel.x;
-                auxY = pixel.y;
-                dParcial = Distancia(&pixel, pixel2);
-                pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
-                pixel.x = auxX;
-                pixel.y = auxY;
-
-                PutPixel(&pixel);
-            }
         }
 
-    } else{ // |m|>1
-
-        if(dy < 0){ // Caso y2<y1
-            d = dy + 2*dx;
-            while(pixel.y > pixel2->y){
-
-                if(d < 0){
-                    d += 2*dx;
-                    pixel.y--; // Varia apenas no eixo y
-                } else{
-                    d += 2*(dy + dx);
-                    pixel.x++;
-                    pixel.y--;
-                }
-
-                auxX = pixel.x;
-                auxY = pixel.y;
-                dParcial = Distancia(&pixel, pixel2);
-                pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
-                pixel.x = auxX;
-                pixel.y = auxY;
-
-                PutPixel(&pixel);
-            }
-
-        } else{ // Caso y1 < y2
-            d = dy - 2*dx;
-            while(pixel.y < pixel2->y){
-
-                if(d < 0){
-                    d += 2*(dy - dx);
-                    pixel.x++;
-                    pixel.y++;
-                } else{
-                    d += -2*dx;
-                    pixel.y++; // Varia apenas no eixo y
-                }
-
-                auxX = pixel.x;
-                auxY = pixel.y;
-                dParcial = Distancia(&pixel, pixel2);
-                pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
-                pixel.x = auxX;
-                pixel.y = auxY;
-
-                PutPixel(&pixel);
-            }
-        }
+        PutPixel(pixel2);
+        return;
     }
 
-    PutPixel(pixel2);
+    // Segundo octante, m > 1
+    if(dx >= 0 && dy >= 0 && ABS(dy) >= ABS(dx)){
+
+        d = dy - 2*dx;
+        incr_e = -2*dx;
+        incr_ne = 2*(dy - dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_ne;
+                pixel.x++;
+                pixel.y++;
+
+            } else{
+                d += incr_e;
+                pixel.y++;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Terceiro octante, m < -1
+    if(dx <= 0 && dy >= 0 && ABS(dy) >= ABS(dx)){
+
+        d = dy + 2*dx;
+        incr_e = 2*dx;
+        incr_ne = 2*(dy + dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_ne;
+                pixel.x--;
+                pixel.y++;
+
+            } else{
+                d += incr_e;
+                pixel.y++;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Quarto octante, -1 < m < 0
+    if(dx <= 0 && dy >= 0 && ABS(dx) >= ABS(dy)){
+
+        d = 2*dy + dx;
+        incr_e = 2*dy;
+        incr_ne = 2*(dy + dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_e;
+                pixel.x--;
+
+            } else{
+                d += incr_ne;
+                pixel.x--;
+                pixel.y++;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Quinto octante, 0 < m < 1
+    if(dx <= 0 && dy <= 0 && ABS(dx) >= ABS(dy)){
+
+        d = -2*dy + dx;
+        incr_e = -2*dy;
+        incr_ne = 2*(-dy + dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_e;
+                pixel.x--;
+
+            } else{
+                d += incr_ne;
+                pixel.x--;
+                pixel.y--;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Sexto octante, m > 1
+    if(dx <= 0 && dy <= 0 && ABS(dy) >= ABS(dx)){
+
+        d = -dy + 2*dx;
+        incr_e = 2*dx;
+        incr_ne = 2*(-dy + dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_ne;
+                pixel.x--;
+                pixel.y--;
+
+            } else{
+                d += incr_e;
+                pixel.y--;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Sétimo octante, m < -1
+    if(dx >= 0 && dy <= 0 && ABS(dy) >= ABS(dx)){
+
+        d = -dy - 2*dx;
+        incr_e = -2*dx;
+        incr_ne = 2*(-dy - dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_ne;
+                pixel.x++;
+                pixel.y--;
+
+            } else{
+                d += incr_e;
+                pixel.y--;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
+
+    // Oitavo octante, -1 < m < 0
+    if(dx >= 0 && dy <= 0 && (ABS(dx) >= ABS(dy))){
+
+        d = -2*dy - dx;
+        incr_e = -2*dy;
+        incr_ne = 2*(-dy - dx);
+
+        while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            if(d < 0){
+                d += incr_e;
+                pixel.x++;
+
+            } else{
+                d += incr_ne;
+                pixel.x++;
+                pixel.y--;
+            }
+
+            auxX = pixel.x; // Guarda a posição x do pixel que será aceso depois da interpolação de cor
+            auxY = pixel.y; // Guarda a posição y do pixel que será aceso depois da interpolação de cor
+            dParcial = Distancia(&pixel, pixel2);
+            pixel = InterpolaCor(dParcial/dTotal, pixel1, pixel2);
+            pixel.x = auxX;
+            pixel.y = auxY;
+
+            PutPixel(&pixel);
+
+        }
+
+        PutPixel(pixel2);
+        return;
+
+    }
 
 } // Fim da função DrawLine()
 
@@ -254,8 +418,6 @@ void PreencheTriangulo(tPixel* pixel1, tPixel* pixel2, tPixel* pixel3){
         }
     }
 
-}
-
+} // Fim da função PreencheTriangulo()
 
 #endif // _MYGL_H_
-

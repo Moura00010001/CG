@@ -7,4 +7,3 @@
 unsigned char * FBptr;
 
 #endif // _DEFINITIONS_H_
-

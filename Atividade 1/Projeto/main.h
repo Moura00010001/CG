@@ -2,6 +2,7 @@
 #include <GL/glu.h>
 #include <GL/glut.h>
 #include <iostream>
+#include <stdlib.h>
 
 #include "definitions.h"
 #include "mygl.h"
@@ -10,7 +11,6 @@
    Deve-se verificar a versão GL em tempo de execução antes de usá-la.
 */
 #define GL_CLAMP_TO_EDGE 0x812F
-#include <stdlib.h>
 
 
 GLuint tex;
@@ -114,4 +114,3 @@ void InitDataStructures(void)
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
-

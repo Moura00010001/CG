@@ -1,37 +1,55 @@
 # depslib dependency file v1.0
-1547761695 source:c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.cpp
+1549811442 source:c:\users\kodilone\desktop\cg - atividade 1\cg - atividade 1\main.cpp
 	"main.h"
 
-1545658931 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.h
+1549811442 c:\users\kodilone\desktop\cg - atividade 1\cg - atividade 1\main.h
 	<GL/gl.h>
 	<GL/glu.h>
 	<GL/glut.h>
 	<iostream>
+	<stdlib.h>
 	"definitions.h"
 	"mygl.h"
-	<stdlib.h>
 
-1354148918 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\definitions.h
+1549811442 c:\users\kodilone\desktop\cg - atividade 1\cg - atividade 1\definitions.h
 
-1547665059 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\mygl.h
+1549810467 c:\users\kodilone\desktop\cg - atividade 1\cg - atividade 1\mygl.h
 	"definitions.h"
 	<math.h>
 
-1547825850 source:c:\users\kodilone\desktop\atividade 1\projeto\main.cpp
+1549821664 source:c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.cpp
 	"main.h"
 
-1545658931 c:\users\kodilone\desktop\atividade 1\projeto\main.h
+1549811442 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\main.h
 	<GL/gl.h>
 	<GL/glu.h>
 	<GL/glut.h>
 	<iostream>
+	<stdlib.h>
 	"definitions.h"
 	"mygl.h"
+
+1549811442 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\definitions.h
+
+1549821884 c:\users\kodilone\documents\projetos\c++\cg - atividade 1\mygl.h
+	"definitions.h"
+	<math.h>
+
+1549821664 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\1ª\atividade 1\projeto\main.cpp
+	"main.h"
+
+1549811442 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\1ª\atividade 1\projeto\main.h
+	<GL/gl.h>
+	<GL/glu.h>
+	<GL/glut.h>
+	<iostream>
 	<stdlib.h>
+	"definitions.h"
+	"mygl.h"
 
-1354148918 c:\users\kodilone\desktop\atividade 1\projeto\definitions.h
+1549811442 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\1ª\atividade 1\projeto\definitions.h
 
-1547987606 c:\users\kodilone\desktop\atividade 1\projeto\mygl.h
+1549821884 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\1ª\atividade 1\projeto\mygl.h
 	"definitions.h"
 	<math.h>
 

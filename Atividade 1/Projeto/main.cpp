@@ -120,7 +120,8 @@ void MyGlDraw(void)
     tPixel pixel17 = {512, 128, {255, 255, 255, 0}}; // Pixel branco
 
     DrawLine(&pixel1, &pixel16); // Ângulo de 315 graus
-    DrawLine(&pixel1, &pixel17); // Ângulo de 330 graus*/
+    DrawLine(&pixel1, &pixel17); // Ângulo de 330 graus
+    */
 
     // Teste InterpolaCor()
     /*
@@ -171,8 +172,8 @@ void MyGlDraw(void)
 
     DrawLine(&pixel1, &pixel2); // Ângulo de 0 grau
     DrawLine(&pixel1, &pixel3); // Ângulo de 30 graus
-    DrawLine(&pixel1, &pixel4); // Ângulo de 45 graus*/
-
+    DrawLine(&pixel1, &pixel4); // Ângulo de 45 graus
+    */
 }
 
 //-----------------------------------------------------------------------------
@@ -191,4 +192,3 @@ int main(int argc, char **argv)
 
 	return 0;
 }
-
