@@ -62,6 +62,36 @@ Tabela | Octantes
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Octantes.png)
 
 
+__Observação:__ Os casos que aparecem na tabela acima representam os "quatro primeiros octantes", considerando o SRT (Sistema de referência da Tela), porém, para rasterizar retas nos outros octantes basta, por espelhamento, trocar os valores daquelas variáveis. Assim, no quinto octante utiliza-se os valores que constam no primeiro mas com sinal negativo.
+
+#### Trecho de código:
+~~~c
+	// Segundo octante, m > 1
+    	if(dx >= 0 && dy >= 0 && ABS(dy) >= ABS(dx)){
+
+        	d = dy - 2*dx;
+        	incr_e = -2*dx;
+        	incr_ne = 2*(dy - dx);
+
+        	while(pixel.x != pixel2->x || pixel.y != pixel2->y){
+
+            		if(d < 0){
+                		d += incr_ne;
+                		pixel.x++;
+                		pixel.y++;
+
+            		} else{
+                		d += incr_e;
+                		pixel.y++;
+			}
+			
+			// Trecho de código da interpolação de cor do próximo pixel e seu acendimento
+            	}
+		
+		
+	}
+~~~
+
 Como consequência, pode-se rasterizar linhas em todas as direções do plano cartesiano.
 
 #### Printscreen:
