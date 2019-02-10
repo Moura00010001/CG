@@ -62,7 +62,7 @@ Tabela | Octantes
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Tabela.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%201/Printscreens/Octantes.png)
 
 
-__Observação:__ Os casos que aparecem na tabela acima representam as inclinações e sentidos das retas contidas em cada um dos quatro primeiros octantes do sistema euclidiano, porém, para rasterizar retas nos outros octantes basta, por espelhamento, trocar os valores daquelas variáveis. Assim, no quinto octante utiliza-se os valores que constam no primeiro mas com sinal contrário.
+__Observação:__ Os casos que aparecem na tabela acima representam as inclinações e sentidos das retas contidas nos quatro primeiros octantes, porém, para rasterizar retas nos outros octantes basta, por espelhamento, trocar os valores daquelas variáveis. Assim, no quinto octante utiliza-se os valores que constam no primeiro mas com sinal contrário.
 
 #### Trecho de código:
 ~~~c
