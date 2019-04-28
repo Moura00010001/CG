@@ -2,30 +2,30 @@
 
 ## Atividade
 
-Esta foi a segunda atividade realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com a estrutura e o funcionamento do pipeline gráfico. O trabalho utilizou um carregador de malhas 3D, em formato OBJ, feito e disponibilizado pelo professor. O objetivo é implementar um pipeline completo, capaz de transformar vértices descritos no espaço do objeto em primitivas rasterizadas no espaço de tela (transformações geométricas entre sistema de coordenadas).
+Esta foi a segunda atividade realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com a estrutura e o funcionamento do pipeline gráfico. O trabalho utilizou um carregador de malhas 3D, em formato OBJ, feito e disponibilizado pelo professor. O objetivo é implementar um pipeline completo, capaz de transformar vértices descritos no espaço do objeto em primitivas rasterizadas no espaço de tela, ou seja, o pipeline gráfico é uma sequência de transformações geométricas entre sistema de coordenadas.
 
 ## Implementação
 
-Foram utilizados vetores e matrizes da biblioteca GLM para as transformações entre cada espaço do pipeline gráfico.
+Foram utilizados vetores e matrizes da biblioteca GLM para representar as transformações entre cada espaço do pipeline gráfico.
 
 ### Espaço do Objeto para o espaço do Universo
 
 #### Trecho de código:
-~~~c
+~~~c++
 glm::mat4 matrizModel(1, 0, 0, 0,
                     0, 1, 0, 0,
                     0, 0, 1, 0,
                     0, 0, 0, 1);
 ~~~	
 
-A matrizModel foi carregada com a identidade, o que significa que cada vértice do objeto descrito em seu espaço não sofrerão nenhuma alteração quando passarem para o espaço do universo.
+A matrizModel foi carregada com a identidade, o que significa que cada vértice do objeto descrito em seu espaço não sofrerá nenhuma alteração quando passar para o espaço do universo.
 
 ### Espaço do Universo para o espaço da câmera
 
 Antes de passar para esse próximo passo do pipeline, precisamos definir os parâmetros da câmera e construir um sistema ortonormal à partir desses parâmetros.
 
 #### Trecho de código:
-~~~c
+~~~c++
 // Parâmetros
 glm::vec3 posicaoCamera(..., ..., ...);  // Posicão da câmera no universo.
 glm::vec3 lookAtCamera(..., ..., ...);  // Ponto para onde a câmera está olhando.
@@ -41,10 +41,10 @@ glm::vec3 xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCam
 glm::vec3 yCamera = glm::cross(zCamera, xCamera);
 ~~~	
 
-A matriz que leva para o próximo espaço é carregada com um rotação e uma translação para alinhar o sistema de coordenadas do Universo com o da Câmera.
+A matriz que leva os vértices para o próximo espaço é carregada com um rotação e uma translação para alinhar o sistema de coordenadas do Universo com o da Câmera.
 
 #### Trecho de código:
-~~~c
+~~~c++
 glm::mat4 bTransposta(xCamera[0], xCamera[1], xCamera[2], 0,
       	          yCamera[0], yCamera[1], yCamera[2], 0,
       	          zCamera[0], zCamera[1], zCamera[2], 0,
@@ -60,10 +60,10 @@ glm::mat4 matrizView = bTransposta * translacao;
 
 ### Espaço da Câmera para o espaço de Recorte
 
-Este espeço é importante porque ele faz uma primeira triagem do que deve ser descartado (por exemplo o que está atrás do view plane) ou do que deve continuar no pipeline gráfico. Devido a simplicidade o pipeline a ser desenvolvido, este não lida com os tais descartes o que significa que se houver alguma geometria atrás da câmera, ela também será rasterizada, espelhada em todos os eixos coordenados, o que pode resultar numa geometria deformada e que não faz sentido, assim que for projetada na Tela. 
+Este espaço é importante porque ele faz uma primeira triagem do que deve ser descartado (por exemplo o que está atrás do view plane) ou do que deve continuar no pipeline gráfico. Devido a simplicidade do pipeline a ser desenvolvido, este não lida com os tais descartes o que significa que se houver alguma geometria atrás da câmera, ela também será rasterizada, espelhada em todos os eixos coordenados, o que pode resultar numa geometria deformada e que não faz sentido, assim que for projetada na Tela. 
 
 #### Trecho de código:
-~~~c
+~~~c++
 int d = ...; // Distância entre o centro de projeção e o viewplane
 
 glm::mat4 matrizProjection(1, 0, 0, 0,
@@ -74,26 +74,26 @@ glm::mat4 matrizProjection(1, 0, 0, 0,
 
 ### Espaço de recorte para o espaço Canônico
 
-Este é o último passo antes do espaço da Tela. Depois de todas as transformações anteriores, muito provavelmente a coordenada homogênea (quarta coordenada utilizada, entre outras coisas, para composição de matrizes) é direferente de 1, o que é necessário para que possamos descartá-la e termos nossos vértices no sistema euclidiano. Supondo que X, Y e Z sejam as coordenadas dos vértices, nesse momento a coordenada homogênea é caracterizada pelo seguinte trecho de código:
+Este é o último passo antes dos vértices caírem no espaço da Tela. Depois de todas as transformações anteriores, muito provavelmente a coordenada homogênea (quarta coordenada utilizada, entre outras coisas, para composição de matrizes) é direferente de 1, o que é necessário para que possamos descartá-la e termos nossos vértices no sistema euclidiano. Supondo que X, Y e Z sejam as coordenadas dos vértices, nesse momento a coordenada homogênea é caracterizada pelo seguinte trecho de código:
 
 #### Trecho de código:
-~~~c
+~~~c++
 glm::vec3 vetorDeVertices;
 
 vetorDeVertices[0] = X;
 vetorDeVertices[1] = Y;
 vetorDeVertices[2] = Z;
-vetorDeVertices[3] = (1 - (vetorDeVertices[2]/d)); //coordenada homogênea;
+vetorDeVertices[3] = 1 - (vetorDeVertices[2]/d); //coordenada homogênea;
 ~~~	
 
 Sem grandes problemas, é só dividir todas as coordenadas, inclusive ela mesma pela última coordenada dos nossos vetores de vértices (coordenada homogênea). Esse passo pode ser deixado para o final do pipeline.
 
 ### Espaço canônico para o espaço da Tela
 
-A matriz que leva coloca os vértices no espaço da Tela é carregada com um espelhamento em Y do espaço Canônico, visto que o eixo Y da  tela cresce no sentido contrário, uma translação, pois o sistema de coordenadas da Tela só trabalha com valores positivos, e finalmente uma escala que leva em consideração sua largura e altura. 
+A matriz que coloca os vértices no espaço da Tela é carregada com um espelhamento em Y do espaço Canônico, visto que o eixo Y da  tela cresce no sentido contrário, uma translação, pois o sistema de coordenadas da Tela só trabalha com valores positivos, e finalmente uma escala que leva em consideração sua largura e altura. 
 
 #### Trecho de código:
-~~~c
+~~~c++
 glm::mat4 espelhamentoYCanonico(1, 0, 0, 0,
                                 0, -1, 0, 0,
                                 0, 0, 1, 0,
@@ -112,7 +112,12 @@ glm::mat4 escalaTela(IMAGE_WIDTH/2, 0, 0, 0,
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
 ~~~	
 
-__Obs:__ Todas as matrizes apresentadas anteriormente podem ser combinadas por meio de uma multiplicação, o que acarreta num maior desempenho durante a transformação de cada vértice do espaço do Objeto para o espaço da Tela. Porém, deve-se lembrar que no final disso tudo, a coordenada homogênea tem que ser descartada, o que é feito dividindo-se todas as coordenadas do vértice por ela.  
+__Obs:__ Todas as matrizes apresentadas anteriormente podem ser combinadas por meio de uma multiplicação, o que acarreta num maior desempenho durante a transformação de cada vértice do espaço do Objeto para o espaço da Tela. Porém, deve-se lembrar que no final disso tudo, a coordenada homogênea tem que ser descartada, o que é feito dividindo-se todas as coordenadas do vértice por ela. 
+
+#### Trecho de código:
+~~~c++
+glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
+~~~	
 
 ## Resultados
 
