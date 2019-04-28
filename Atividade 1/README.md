@@ -199,7 +199,9 @@ A função PreencheTriangulo() percorre todos os pixels da janela de exibição 
 
 ## Resultados e possíveis melhoras
 
-As funções implementadas realizam bem a rasterização das primitivas gráficas propostas pela atividade mas poderiam ser mais eficientes com a possibilidade de evitar os cálculos da porcentagem e da distância entre o próximo pixel a ser aceso até o pixel final da reta utilizados na função InterpolaCor() e de outra abordagem no preenchimento do triângulo, sem coordenadas baricêntricas, talvez com uma variação do algoritmo de Bresenham desenhando linhas entre duas arestas para preencher o triângulo.
+As funções implementadas realizam bem a rasterização das primitivas gráficas propostas pela atividade mas poderiam ser mais eficientes com a possibilidade de evitar os cálculos da porcentagem e da distância entre o próximo pixel a ser aceso até o pixel final da reta utilizados na função InterpolaCor() e de outra abordagem no preenchimento do triângulo, sem coordenadas baricêntricas, talvez com uma variação do algoritmo de Bresenham desenhando linhas entre duas arestas para preencher o triângulo*.
+
+__Obs:__ * Existe um algoritmo desse tipo para rasterização de triângulos e chama-se Scanline, porém ele só foi conhecido algum tempo depois da realização deste projeto, nas aulas de Introdução à Computação Gráfica com o Professor Christian Azambuja Pagot.   
 
 
 ## Referências
