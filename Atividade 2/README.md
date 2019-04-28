@@ -123,16 +123,16 @@ glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
 
 Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse "enferrujada", presa numa posição fixa, o que compromete grande parte da visualização do modelo.
 
-____Parâmetros de teste utilizados em OpenGL:__ Posição da Câmera: (0,0,8); Look At: (0,0,0); UP da Câmera: (0,1,0); Fovy: 20; Aspect: 1; NearPlane: 2; FarPlane: 100.
-__Parâmetros de teste utilizados em My OpenGL:__ posicaoCamera(0,0,4); lookAtCamera(0,0,0); upCamera(0,1,0); d = 2.
+<p>____Parâmetros de teste utilizados em OpenGL:__ Posição da Câmera: (0,0,8); Look At: (0,0,0); UP da Câmera: (0,1,0); Fovy: 20; Aspect: 1; NearPlane: 2; FarPlane: 100.</p>
+<p>__Parâmetros de teste utilizados em My OpenGL:__ posicaoCamera(0,0,4); lookAtCamera(0,0,0); upCamera(0,1,0); d = 2.</p>
 
 OpenGL | Pipeline desenvolvido
 ------------ | ------------
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20OpenGL.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
 
 __Outros parâmetros de teste utilizados em My OpenGL:__ 
-1: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
-2: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
+<p>1: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.</p>
+<p>2: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.</p>
 
 1 | 2
 ------------ | ------------
