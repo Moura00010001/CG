@@ -121,7 +121,7 @@ glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
 
 ## Testes
 
-Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse "enferrujada", presa numa posição fixa, o que compromete grande parte da visualização do modelo.
+Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse enferrujada, presa numa posição, o que compromete grande parte da visualização do modelo.
 
 __Parâmetros de teste utilizados em OpenGL:__ Posição da Câmera: (0,0,8); Look At: (0,0,0); UP da Câmera: (0,1,0); Fovy: 20; Aspect: 1; NearPlane: 2; FarPlane: 100.
 
