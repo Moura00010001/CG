@@ -126,28 +126,17 @@ OpenGL | Pipeline desenvolvido
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20OpenGL.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
 
 __Outros parâmetros de teste utilizados em My OpenGL:__ 
-1: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
-2: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
+1: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
+2: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
 
 1 | 2
 ------------ | ------------
-![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%202.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
+![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%202.png)
 
 ## Resultados e possíveis melhoras
 
-Houve uma pequena dificuldade até se conseguir utilizar o carregador de malhas disponibilizado pelo professor. Também, muito infelizmente, por falta de tempo, o problema apresentado na seção anterior não foi resolvido 
-
-__Obs:__ * Existe um algoritmo desse tipo para rasterização de triângulos e chama-se Scanline, porém ele só foi conhecido algum tempo depois da realização deste projeto, nas aulas de Introdução à Computação Gráfica com o Professor Christian Azambuja Pagot.   
-
+Houve uma pequena dificuldade até se conseguir utilizar o carregador de malhas disponibilizado pelo professor. Também, muito infelizmente, como citado na seção anterior, um problema inesperado foi encontrado e não foi resolvido. Tentou-se algumas soluções como trocar as operações de pós-multiplicação por pré-multiplicação, linhas por colunas mas estas modificações apenas geravam outros problemas. No final das contas, não conseguiu-se identificar a natureza do problema e, por falta de tempo, o pipeline foi enviado assim mesmo. 
 
 ## Referências
 
-DINIZ, Renato. Learning Bits. Disponível em <http://letslearnbits.blogspot.com>
-
-DAVIS, Clodoveu. "Geometria de Triângulos e Polígonos"; MundoGEO. Disponível em <https://mundogeo.com/blog/2001/08/01/geometria-de-triangulos-e-poligonos/>
-
-"Barycentric coordinate system"; Wikipedia. Disponível em <https://en.wikipedia.org/wiki/Barycentric_coordinate_system#Conversion_between_barycentric_and_Cartesian_coordinates>
-
-WINKLE, Lewis Van. "Interpolating in a Triangle"; CodePlea. Disponível em <https://codeplea.com/triangular-interpolation>
-
-"Ray Tracing: Rendering a Triangle"; Scratchapixel. Disponível em <https://www.scratchapixel.com/lessons/3d-basic-rendering/ray-tracing-rendering-a-triangle/barycentric-coordinates>
+Aulas e Slides do professor Christian Azambuja Pagot.
