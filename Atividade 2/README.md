@@ -136,7 +136,7 @@ __Outros parâmetros de teste utilizados em My OpenGL:__
 
 1 | 2
 ------------ | ------------
-![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%202.png)
+![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%203.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%202.png)
 
 ## Resultados e possíveis melhoras
 
