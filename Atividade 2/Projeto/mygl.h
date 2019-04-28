@@ -10,7 +10,6 @@
 
 #define ABS(x) ((x) < 0 ? -(x) : (x)) // Macro utilizada para calcular módulo
 #define OBJ "monkey_head2.obj"
-//#define OBJ "MekaGyakushuGoji.obj"
 
 //*****************************************************************************
 // Defina aqui as suas funções gráficas
@@ -37,9 +36,9 @@ glm::mat4 matrizModel(1, 0, 0, 0,
 * Parâmetros da câmera
 ********************************************************************************/
 
-glm::vec3 posicaoCamera(-2, 0, 7);  // Posicão da câmera no universo.
+glm::vec3 posicaoCamera(-2, 0, 100);  // Posicão da câmera no universo.
 //glm::vec3 posicaoCamera(0, 0, 8);  // Posicão da câmera no universo.
-glm::vec3 lookAtCamera(-10, 2, 0);  // Ponto para onde a câmera está olhando.
+glm::vec3 lookAtCamera(-12, 2, 0);  // Ponto para onde a câmera está olhando.
 //glm::vec3 lookAtCamera(0, 0, 0);  // Ponto para onde a câmera está olhando.
 glm::vec3 upCamera(0, 1, 0);  // 'up' da câmera no espaço do universo.
 
@@ -114,35 +113,6 @@ glm::mat4 escalaTela(IMAGE_WIDTH/2, 0, 0, 0,
       		         0, 0, 0, 1);
 
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
-
-void defineCamera(glm::vec3 posCam){
-
-    posicaoCamera = posCam;  // Posicão da câmera no universo.
-
-    apontaCamera = lookAtCamera - posicaoCamera;
-
-    zCamera = -(apontaCamera) / glm::length(apontaCamera);
-    //glm::vec3 zCamera =  - glm::normalize(apontaCamera);
-    xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCamera, zCamera));
-    //glm::vec3 xCamera = glm::normalize(glm::cross(upCamera, zCamera));
-    yCamera = glm::cross(zCamera, xCamera);
-
-    bTransposta = glm::mat4(xCamera[0], xCamera[1], xCamera[2], 0,
-                            yCamera[0], yCamera[1], yCamera[2], 0,
-                            zCamera[0], zCamera[1], zCamera[2], 0,
-                            0, 0, 0, 1);
-    translacao = glm::mat4(1, 0, 0, -posicaoCamera[0],
-                           0, 1, 0, -posicaoCamera[1],
-                           0, 0, 1, -posicaoCamera[2],
-                           0, 0, 0, 1);
-
-    matrizView = bTransposta * translacao;
-
-    matrizModelView = matrizView * matrizModel;
-
-    matrizModelViewProj = matrizProjection * matrizModelView;
-
-}
 
 typedef struct{
 
@@ -553,6 +523,35 @@ void PreencheTriangulo(tPixel* pixel1, tPixel* pixel2, tPixel* pixel3){
     }
 
 } // Fim da função PreencheTriangulo()
+
+void defineCamera(glm::vec3 posCam){
+
+    posicaoCamera = posCam;  // Posicão da câmera no universo.
+
+    apontaCamera = lookAtCamera - posicaoCamera;
+
+    zCamera = -(apontaCamera) / glm::length(apontaCamera);
+    //glm::vec3 zCamera =  - glm::normalize(apontaCamera);
+    xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCamera, zCamera));
+    //glm::vec3 xCamera = glm::normalize(glm::cross(upCamera, zCamera));
+    yCamera = glm::cross(zCamera, xCamera);
+
+    bTransposta = glm::mat4(xCamera[0], xCamera[1], xCamera[2], 0,
+                            yCamera[0], yCamera[1], yCamera[2], 0,
+                            zCamera[0], zCamera[1], zCamera[2], 0,
+                            0, 0, 0, 1);
+    translacao = glm::mat4(1, 0, 0, -posicaoCamera[0],
+                           0, 1, 0, -posicaoCamera[1],
+                           0, 0, 1, -posicaoCamera[2],
+                           0, 0, 0, 1);
+
+    matrizView = bTransposta * translacao;
+
+    matrizModelView = matrizView * matrizModel;
+
+    matrizModelViewProj = matrizProjection * matrizModelView;
+
+}
 
 /*******************************************************************************
 * Desenho da geometria na "tela"
