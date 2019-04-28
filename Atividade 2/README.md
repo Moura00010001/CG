@@ -2,7 +2,7 @@
 
 ## Atividade
 
-Esta foi a segunda atividade realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com a estrutura e o funcionamento do pipeline gráfico. O trabalho utilizou um carregador de malhas 3D, em formato OBJ, implementado e disponibilizado pelo professor. O objetivo é implementar um pipeline completo, capaz de transformar vértices descritos no espaço do objeto em primitivas rasterizadas no espaço de tela (transformações geométricas entre sistema de coordenadas).
+Esta foi a segunda atividade realizada para a disciplina de Introdução à Computação Gráfica, proposta no intuito de familiarizar os alunos com a estrutura e o funcionamento do pipeline gráfico. O trabalho utilizou um carregador de malhas 3D, em formato OBJ, feito e disponibilizado pelo professor. O objetivo é implementar um pipeline completo, capaz de transformar vértices descritos no espaço do objeto em primitivas rasterizadas no espaço de tela (transformações geométricas entre sistema de coordenadas).
 
 ## Implementação
 
@@ -13,9 +13,9 @@ Foram utilizados vetores e matrizes da biblioteca GLM para as transformações e
 #### Trecho de código:
 ~~~c
 glm::mat4 matrizModel(1, 0, 0, 0,
-            	        0, 1, 0, 0,
-            	        0, 0, 1, 0,
-                      0, 0, 0, 1);
+                    0, 1, 0, 0,
+                    0, 0, 1, 0,
+                    0, 0, 0, 1);
 ~~~	
 
 A matrizModel foi carregada com a identidade, o que significa que cada vértice do objeto descrito em seu espaço não sofrerão nenhuma alteração quando passarem para o espaço do universo.
@@ -46,28 +46,30 @@ A matriz que leva para o próximo espaço é carregada com um rotação e uma tr
 #### Trecho de código:
 ~~~c
 glm::mat4 bTransposta(xCamera[0], xCamera[1], xCamera[2], 0,
-      		            yCamera[0], yCamera[1], yCamera[2], 0,
-      		            zCamera[0], zCamera[1], zCamera[2], 0,
-      		            0, 0, 0, 1);
+      	          yCamera[0], yCamera[1], yCamera[2], 0,
+      	          zCamera[0], zCamera[1], zCamera[2], 0,
+      	          0, 0, 0, 1);
 
 glm::mat4 translacao(1, 0, 0, -posicaoCamera[0],
-     		             0, 1, 0, -posicaoCamera[1],
-     		             0, 0, 1, -posicaoCamera[2],
-     		             0, 0, 0, 1);
+     	         0, 1, 0, -posicaoCamera[1],
+     	         0, 0, 1, -posicaoCamera[2],
+     	         0, 0, 0, 1);
 
 glm::mat4 matrizView = bTransposta * translacao;
 ~~~	
 
 ### Espaço da Câmera para o espaço de Recorte
 
+Este espeço é importante porque ele faz uma primeira triagem do que deve ser descartado (por exemplo o que está atrás do view plane) ou do que deve continuar no pipeline gráfico. Devido a simplicidade o pipeline a ser desenvolvido, este não lida com os tais descartes o que significa que se houver alguma geometria atrás da câmera, ela também será rasterizada, espelhada em todos os eixos coordenados, o que pode resultar numa geometria deformada e que não faz sentido, assim que for projetada na Tela. 
+
 #### Trecho de código:
 ~~~c
 int d = ...; // Distância entre o centro de projeção e o viewplane
 
 glm::mat4 matrizProjection(1, 0, 0, 0,
-                 	         0, 1, 0, 0,
-                 	         0, 0, 1, d,
-                 	         0, 0, -(1/d), 0);
+                 	   0, 1, 0, 0,
+                 	   0, 0, 1, d,
+                 	   0, 0, -(1/d), 0);
 ~~~	
 
 ### Espaço de recorte para o espaço Canônico
@@ -103,9 +105,9 @@ glm::mat4 translacaoCanonico(1, 0, 0, (IMAGE_WIDTH - 1)/2,
                              0, 0, 0, 1);
 
 glm::mat4 escalaTela(IMAGE_WIDTH/2, 0, 0, 0,
-      		           0, IMAGE_HEIGHT/2, 0, 0,
-      		           0, 0, 1, 0,
-      		           0, 0, 0, 1);
+      	         0, IMAGE_HEIGHT/2, 0, 0,
+      	         0, 0, 1, 0,
+      	         0, 0, 0, 1);
 
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
 ~~~	
@@ -114,13 +116,22 @@ __Obs:__ Todas as matrizes apresentadas anteriormente podem ser combinadas por m
 
 ## Resultados
 
-Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse "enferrujada" numa posição fixa, o que compromete grande parte da visualização do modelo.
+Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse "enferrujada", presa numa posição fixa, o que compromete grande parte da visualização do modelo.
 
+____Parâmetros de teste utilizados em OpenGL:__ Posição da Câmera: (0,0,8); Look At: (0,0,0); UP da Câmera: (0,1,0); Fovy: 20; Aspect: 1; NearPlane: 2; FarPlane: 100.
 __Parâmetros de teste utilizados em My OpenGL:__ posicaoCamera(0,0,4); lookAtCamera(0,0,0); upCamera(0,1,0); d = 2.
 
 OpenGL | Pipeline desenvolvido
 ------------ | ------------
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20OpenGL.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
+
+__Outros parâmetros de teste utilizados em My OpenGL:__ 
+1: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
+2: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.
+
+1 | 2
+------------ | ------------
+![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%202.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
 
 ## Resultados e possíveis melhoras
 
