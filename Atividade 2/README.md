@@ -119,7 +119,7 @@ __Obs:__ Todas as matrizes apresentadas anteriormente podem ser combinadas por m
 glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
 ~~~	
 
-## Resultados
+## Testes
 
 Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse "enferrujada", presa numa posição fixa, o que compromete grande parte da visualização do modelo.
 
