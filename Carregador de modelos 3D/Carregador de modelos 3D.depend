@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1556460602 source:c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\carregador3d.cpp
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	<GL/freeglut.h>
+	<glm/glm.hpp>
+	<glm/vec2.hpp>
+	<glm/vec3.hpp>
+	"objLoader.h"
+
+1556278169 c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\objloader.h
+	"obj_parser.h"
+
+1556277856 c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\obj_parser.h
+	"list.h"
+
+1556278169 c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\list.h
+
+1556278182 source:c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\list.cpp
+	"list.h"
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1556278169 source:c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\obj_parser.cpp
+	<stdio.h>
+	<string.h>
+	<stdlib.h>
+	"obj_parser.h"
+	"list.h"
+	"string_extra.h"
+
+1556277672 c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\string_extra.h
+
+1556278169 source:c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\objloader.cpp
+	"objLoader.h"
+	"obj_parser.h"
+
+1556277764 source:c:\users\kodilone\documents\projetos\c++\carregador de modelos 3d\string_extra.cpp
+	"string_extra.h"
+	<string.h>
+
