@@ -13,9 +13,9 @@ Foram utilizados vetores e matrizes da biblioteca GLM para representar as transf
 #### Trecho de código:
 ~~~c++
 glm::mat4 matrizModel(1, 0, 0, 0,
-                      0, 1, 0, 0,
-					  0, 0, 1, 0,
-					  0, 0, 0, 1);
+					0, 1, 0, 0,
+					0, 0, 1, 0,
+					0, 0, 0, 1);
 ~~~	
 
 A matrizModel foi carregada com a identidade, o que significa que cada vértice do objeto descrito em seu espaço não sofrerá nenhuma alteração quando passar para o espaço do universo.
@@ -46,14 +46,14 @@ A matriz que leva os vértices para o próximo espaço é carregada com um rota�
 #### Trecho de código:
 ~~~c++
 glm::mat4 bTransposta(xCamera[0], xCamera[1], xCamera[2], 0,
-      	          yCamera[0], yCamera[1], yCamera[2], 0,
-      	          zCamera[0], zCamera[1], zCamera[2], 0,
-      	          0, 0, 0, 1);
+					yCamera[0], yCamera[1], yCamera[2], 0,
+					zCamera[0], zCamera[1], zCamera[2], 0,
+					0, 0, 0, 1);
 
 glm::mat4 translacao(1, 0, 0, -posicaoCamera[0],
-     	         0, 1, 0, -posicaoCamera[1],
-     	         0, 0, 1, -posicaoCamera[2],
-     	         0, 0, 0, 1);
+					0, 1, 0, -posicaoCamera[1],
+					0, 0, 1, -posicaoCamera[2],
+					0, 0, 0, 1);
 
 glm::mat4 matrizView = bTransposta * translacao;
 ~~~	
@@ -67,9 +67,9 @@ Este espaço é importante porque ele faz uma primeira triagem do que deve ser d
 int d = ...; // Distância entre o centro de projeção e o viewplane
 
 glm::mat4 matrizProjection(1, 0,    0,   0,
-                           0, 1,    0,   0,
-						   0, 0,    1,   d,
-						   0, 0, -(1/d), 1);
+							0, 1,    0,   0,
+							0, 0,    1,   d,
+							0, 0, -(1/d), 1);
 ~~~	
 
 ### Espaço de recorte para o espaço Canônico
@@ -95,19 +95,19 @@ A matriz que coloca os vértices no espaço da Tela é carregada com um espelham
 #### Trecho de código:
 ~~~c++
 glm::mat4 espelhamentoYCanonico(1, 0, 0, 0,
-                                0, -1, 0, 0,
-                                0, 0, 1, 0,
-                                0, 0, 0, 1);
+								0, -1, 0, 0,
+								0, 0, 1, 0,
+								0, 0, 0, 1);
 
 glm::mat4 translacaoCanonico(1, 0, 0, 1,
-                             0, 1, 0, 1,
-                             0, 0, 1, 0,
-                             0, 0, 0, 1);
+							0, 1, 0, 1,
+							0, 0, 1, 0,
+							0, 0, 0, 1);
 
 glm::mat4 escalaTela(IMAGE_WIDTH/2,     0,         0, 0,
-                          0,       IMAGE_HEIGHT/2, 0, 0,
-						  0,            0,         1, 0,
-						  0,            0,         0, 1);
+						0,       IMAGE_HEIGHT/2, 0, 0,
+						0,            0,         1, 0,
+						0,            0,         0, 1);
 
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
 ~~~	
