@@ -45,65 +45,11 @@
 
 1556315043 c:\users\kodilone\documents\projetos\c++\cg - atividade 2\definitions.h
 
-1556459961 c:\users\kodilone\documents\projetos\c++\cg - atividade 2\mygl.h
+1576872326 c:\users\kodilone\documents\projetos\c++\cg - atividade 2\mygl.h
 	"definitions.h"
 	<math.h>
 	<glm/glm.hpp>
 	<glm/vec2.hpp>
 	<glm/vec3.hpp>
 	"objLoader.h"
-
-1556278182 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\list.cpp
-	"list.h"
-	<string.h>
-	<stdlib.h>
-	<stdio.h>
-
-1556278169 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\list.h
-
-1556280092 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\main.cpp
-	"main.h"
-
-1556103752 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\main.h
-	<GL/gl.h>
-	<GL/glu.h>
-	<GL/glut.h>
-	<iostream>
-	<stdlib.h>
-	"definitions.h"
-	"mygl.h"
-
-1556315043 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\definitions.h
-
-1556472351 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\mygl.h
-	"definitions.h"
-	<math.h>
-	<glm/glm.hpp>
-	<glm/vec2.hpp>
-	<glm/vec3.hpp>
-	"objLoader.h"
-
-1556278169 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\objloader.h
-	"obj_parser.h"
-
-1556277856 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\obj_parser.h
-	"list.h"
-
-1556278169 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\obj_parser.cpp
-	<stdio.h>
-	<string.h>
-	<stdlib.h>
-	"obj_parser.h"
-	"list.h"
-	"string_extra.h"
-
-1556277672 c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\string_extra.h
-
-1556278169 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\objloader.cpp
-	"objLoader.h"
-	"obj_parser.h"
-
-1556277764 source:c:\users\kodilone\documents\ciência da computação\3° semestre\introdução à computação gráfica\atividades práticas\2ª\atividade 2\projeto\string_extra.cpp
-	"string_extra.h"
-	<string.h>
 

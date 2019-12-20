@@ -13,9 +13,9 @@ Foram utilizados vetores e matrizes da biblioteca GLM para representar as transf
 #### Trecho de código:
 ~~~c++
 glm::mat4 matrizModel(1, 0, 0, 0,
-                    0, 1, 0, 0,
-                    0, 0, 1, 0,
-                    0, 0, 0, 1);
+                      0, 1, 0, 0,
+					  0, 0, 1, 0,
+					  0, 0, 0, 1);
 ~~~	
 
 A matrizModel foi carregada com a identidade, o que significa que cada vértice do objeto descrito em seu espaço não sofrerá nenhuma alteração quando passar para o espaço do universo.
@@ -66,15 +66,15 @@ Este espaço é importante porque ele faz uma primeira triagem do que deve ser d
 ~~~c++
 int d = ...; // Distância entre o centro de projeção e o viewplane
 
-glm::mat4 matrizProjection(1, 0, 0, 0,
-                 	   0, 1, 0, 0,
-                 	   0, 0, 1, d,
-                 	   0, 0, -(1/d), 0);
+glm::mat4 matrizProjection(1, 0,    0,   0,
+                           0, 1,    0,   0,
+						   0, 0,    1,   d,
+						   0, 0, -(1/d), 1);
 ~~~	
 
 ### Espaço de recorte para o espaço Canônico
 
-Este é o último passo antes dos vértices caírem no espaço da Tela. Depois de todas as transformações anteriores, muito provavelmente a coordenada homogênea (quarta coordenada utilizada, entre outras coisas, para composição de matrizes) é direferente de 1, o que é necessário para que possamos descartá-la e termos nossos vértices no sistema euclidiano. Supondo que X, Y e Z sejam as coordenadas dos vértices, nesse momento a coordenada homogênea é caracterizada pelo seguinte trecho de código:
+Este é o último passo antes dos vértices caírem no espaço da Tela. Depois de todas as transformações anteriores, muito provavelmente a coordenada homogênea (quarta coordenada utilizada, entre outras coisas, para composição de matrizes) é direferente de 1, o que é necessário para que possamos descartá-la e termos nossos vértices no espaço euclidiano. Supondo que X, Y e Z sejam as coordenadas dos vértices, nesse momento a coordenada homogênea é caracterizada pelo seguinte trecho de código:
 
 #### Trecho de código:
 ~~~c++
@@ -99,15 +99,15 @@ glm::mat4 espelhamentoYCanonico(1, 0, 0, 0,
                                 0, 0, 1, 0,
                                 0, 0, 0, 1);
 
-glm::mat4 translacaoCanonico(1, 0, 0, (IMAGE_WIDTH - 1)/2,
-                             0, 1, 0, (IMAGE_HEIGHT - 1)/2,
+glm::mat4 translacaoCanonico(1, 0, 0, 1,
+                             0, 1, 0, 1,
                              0, 0, 1, 0,
                              0, 0, 0, 1);
 
-glm::mat4 escalaTela(IMAGE_WIDTH/2, 0, 0, 0,
-      	         0, IMAGE_HEIGHT/2, 0, 0,
-      	         0, 0, 1, 0,
-      	         0, 0, 0, 1);
+glm::mat4 escalaTela(IMAGE_WIDTH/2,     0,         0, 0,
+                          0,       IMAGE_HEIGHT/2, 0, 0,
+						  0,            0,         1, 0,
+						  0,            0,         0, 1);
 
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
 ~~~	
@@ -121,19 +121,17 @@ glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
 
 ## Testes
 
-Ocorreu um grave problema, que, por falta de tempo, não foi investigado e solucionado. Como pode ser visto nas imagens a seguir, é como se a câmera do pipeline desenvolvido aqui estivesse enferrujada, presa numa posição, o que compromete grande parte da visualização do modelo.
-
 __Parâmetros de teste utilizados em OpenGL:__ Posição da Câmera: (0,0,8); Look At: (0,0,0); UP da Câmera: (0,1,0); Fovy: 20; Aspect: 1; NearPlane: 2; FarPlane: 100.
 
-__Parâmetros de teste utilizados em My OpenGL:__ posicaoCamera(0,0,4); lookAtCamera(0,0,0); upCamera(0,1,0); d = 2.
+__Parâmetros de teste utilizados em My OpenGL:__ posicaoCamera(0,0,2); lookAtCamera(0,0,0); upCamera(0,1,0); d = 4.
 
 OpenGL | Pipeline desenvolvido
 ------------ | ------------
 ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20OpenGL.png) | ![](https://github.com/Moura00010001/CG/blob/master/Atividade%202/Printscreens/Pipeline%20Projeto%20-%201.png)
 
 __Outros parâmetros de teste utilizados em My OpenGL:__ 
-<p>1: posicaoCamera(-2,0,100); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.</p>
-<p>2: posicaoCamera(-2,0,10); lookAtCamera(-12,2,0); upCamera(0,1,0); d = 100.</p>
+<p>1: posicaoCamera(2,0,2); lookAtCamera(0,0,0); upCamera(0,1,0); d = 4.</p>
+<p>2: posicaoCamera(2,2,2); lookAtCamera(0,0,0); upCamera(0,1,0); d = 4.</p>
 
 1 | 2
 ------------ | ------------

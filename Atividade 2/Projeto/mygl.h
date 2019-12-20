@@ -10,36 +10,37 @@
 
 #define ABS(x) ((x) < 0 ? -(x) : (x)) // Macro utilizada para calcular módulo
 #define OBJ "monkey_head2.obj"
+//#define OBJ "MekaGyakushuGoji.obj"
 
 //*****************************************************************************
 // Defina aqui as suas funções gráficas
 //*****************************************************************************
 
-GLfloat obsX = 0;
-GLfloat obsY = 0;
-GLfloat obsZ = 100;
-
-float tempo;
+//bool aux = true;
 
 objLoader* modelo;
 
 /*******************************************************************************
 * Matriz model: Esp. Obj. --> Esp. Univ.
 ********************************************************************************/
-
+/*
+[1, 0, 0, 0,
+ 0, 1, 0, 0,
+ 0, 0, 1, 0,
+ 0, 0, 0, 1];
+*/
+//glm::mat4 matrizModel(1.0f);
 glm::mat4 matrizModel(1, 0, 0, 0,
-            	      0, 1, 0, 0,
-            	      0, 0, 1, 0,
+                      0, 1, 0, 0,
+                      0, 0, 1, 0,
                       0, 0, 0, 1);
 
 /*******************************************************************************
 * Parâmetros da câmera
 ********************************************************************************/
 
-glm::vec3 posicaoCamera(-2, 0, 100);  // Posicão da câmera no universo.
-//glm::vec3 posicaoCamera(0, 0, 8);  // Posicão da câmera no universo.
-glm::vec3 lookAtCamera(-12, 2, 0);  // Ponto para onde a câmera está olhando.
-//glm::vec3 lookAtCamera(0, 0, 0);  // Ponto para onde a câmera está olhando.
+glm::vec3 posicaoCamera(0, 0, 2);  // Posicão da câmera no universo.
+glm::vec3 lookAtCamera(0, 0, 0);  // Ponto para onde a câmera está olhando.
 glm::vec3 upCamera(0, 1, 0);  // 'up' da câmera no espaço do universo.
 
 /*******************************************************************************
@@ -48,71 +49,123 @@ glm::vec3 upCamera(0, 1, 0);  // 'up' da câmera no espaço do universo.
 
 glm::vec3 apontaCamera = lookAtCamera - posicaoCamera;
 
-glm::vec3 zCamera = -(apontaCamera) / glm::length(apontaCamera);
-//glm::vec3 zCamera =  - glm::normalize(apontaCamera);
-glm::vec3 xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCamera, zCamera));
-//glm::vec3 xCamera = glm::normalize(glm::cross(upCamera, zCamera));
+//glm::vec3 zCamera = -(apontaCamera) / glm::length(apontaCamera);
+glm::vec3 zCamera =  - glm::normalize(apontaCamera);
+//glm::vec3 xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCamera, zCamera));
+glm::vec3 xCamera = glm::normalize(glm::cross(upCamera, zCamera));
 glm::vec3 yCamera = glm::cross(zCamera, xCamera);
 
 /*******************************************************************************
 * Construção da matriz view: Esp. Univ. --> Esp. Cam.
 ********************************************************************************/
 
-glm::mat4 bTransposta(xCamera[0], xCamera[1], xCamera[2], 0,
-      		          yCamera[0], yCamera[1], yCamera[2], 0,
-      		          zCamera[0], zCamera[1], zCamera[2], 0,
-      		          0, 0, 0, 1);
+//glm::mat4 bTransposta(1.0f);
+glm::mat4 bTransposta(xCamera[0], yCamera[0], zCamera[0], 0,
+                      xCamera[1], yCamera[1], zCamera[1], 0,
+                      xCamera[2], yCamera[2], zCamera[2], 0,
+                      0, 0, 0, 1);
 
-glm::mat4 translacao(1, 0, 0, -posicaoCamera[0],
-     		         0, 1, 0, -posicaoCamera[1],
-     		         0, 0, 1, -posicaoCamera[2],
-     		         0, 0, 0, 1);
+//glm::mat4 translacao(1.0f);
+glm::mat4 translacao(1, 0, 0, 0,
+                     0, 1, 0, 0,
+                     0, 0, 1, 0,
+                     -posicaoCamera[0], -posicaoCamera[1], -posicaoCamera[2], 1);
 
+//glm::mat4 matrizView(1.0f);
 glm::mat4 matrizView = bTransposta * translacao;
 
 /*******************************************************************************
 * Construção da matriz ModelView: Esp. Obj. --> Esp. Cam.
 ********************************************************************************/
 
+//glm::mat4 matrizModelView(1.0f);
 glm::mat4 matrizModelView = matrizView * matrizModel;
 
 /*******************************************************************************
 * Construção da matriz de Projeção: Esp. Cam. --> Esp. Recorte
 ********************************************************************************/
-int d = 100; // Distância do centro de projeção para o viewplane
+float d = 4.0f; // Distância do centro de projeção para o viewplane
 
+//glm::mat4 matrizProjection(1.0f);
 glm::mat4 matrizProjection(1, 0, 0, 0,
-                 	       0, 1, 0, 0,
-                 	       0, 0, 1, d,
-                 	       0, 0, -(1/d), 0);
-
+                           0, 1, 0, 0,
+                           0, 0, 1, -(1/d),
+                           0, 0, d, 1);
 
 /*******************************************************************************
 * Construção da matriz ModelViewProjection: Esp. Obj. --> Esp. Recorte
 ********************************************************************************/
 
+//glm::mat4 matrizModelViewProj(1.0f);
 glm::mat4 matrizModelViewProj = matrizProjection * matrizModelView;
 
 /*******************************************************************************
 * Conversão de coordenadas do espaço canônico para o espaço de tela.
 ********************************************************************************/
 
+/*[1, 0, 0, 0,
+   0, -1, 0, 0,
+   0, 0, 1, 0,
+   0, 0, 0, 1]*/
+//glm::mat4 espelhamentoYCanonico(1.0f);
 glm::mat4 espelhamentoYCanonico(1, 0, 0, 0,
                                 0, -1, 0, 0,
                                 0, 0, 1, 0,
                                 0, 0, 0, 1);
 
-glm::mat4 translacaoCanonico(1, 0, 0, (IMAGE_WIDTH - 1)/2,
-                             0, 1, 0, (IMAGE_HEIGHT - 1)/2,
+/*[1, 0, 0, 1,
+   0, 1, 0, 1,
+   0, 0, 1, 0,
+   0, 0, 0, 1]*/
+//glm::mat4 translacaoCanonico(1.0f);
+glm::mat4 translacaoCanonico(1, 0, 0, 0,
+                             0, 1, 0, 0,
                              0, 0, 1, 0,
-                             0, 0, 0, 1);
+                             1, 1, 0, 1);
 
+/*(IMAGE_WIDTH/2, 0, 0, 0,
+   0, IMAGE_HEIGHT/2, 0, 0,
+   0, 0, 1, 0,
+   0, 0, 0, 1)*/
+//glm::mat4 escalaTela(1.0f);
 glm::mat4 escalaTela(IMAGE_WIDTH/2, 0, 0, 0,
-      		         0, IMAGE_HEIGHT/2, 0, 0,
-      		         0, 0, 1, 0,
-      		         0, 0, 0, 1);
+                     0, IMAGE_HEIGHT/2, 0, 0,
+                     0, 0, 1, 0,
+                     0, 0, 0, 1);
 
+//glm::mat4 matrizViewport(1.0f);
 glm::mat4 matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
+
+//glm::mat4 matrizModelViewProjViewPort(1.0f);
+glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
+
+/*void carregaMatrizes(){
+
+    bTransposta[0] = glm::vec4(glm::vec3(xCamera[0], yCamera[0], zCamera[0]), 0.0f );
+    bTransposta[1] = glm::vec4(glm::vec3(xCamera[1], yCamera[1], zCamera[1]), 0.0f );
+    bTransposta[2] = glm::vec4(glm::vec3(xCamera[2], yCamera[2], zCamera[2]), 0.0f );
+
+    translacao[3] = glm::vec4(glm::vec3(-posicaoCamera[0], -posicaoCamera[1], -posicaoCamera[2]), 1.0f );
+
+    matrizView = bTransposta * translacao;
+
+    matrizModelView = matrizView * matrizModel;
+
+    matrizProjection[2][3] = -(1/d);
+    matrizProjection[3][2] = d;
+
+    matrizModelViewProj = matrizProjection * matrizModelView;
+
+    espelhamentoYCanonico[1][1] = -1.0f;
+    translacaoCanonico[3] = glm::vec4(glm::vec3(1.0f, 1.0f, 0.0f), 1.0f );
+    escalaTela[0][0] = IMAGE_WIDTH/2;
+    escalaTela[1][1] = IMAGE_HEIGHT/2;
+
+    matrizViewport = escalaTela * translacaoCanonico * espelhamentoYCanonico;
+
+    matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
+
+}*/
 
 typedef struct{
 
@@ -524,52 +577,16 @@ void PreencheTriangulo(tPixel* pixel1, tPixel* pixel2, tPixel* pixel3){
 
 } // Fim da função PreencheTriangulo()
 
-void defineCamera(glm::vec3 posCam){
-
-    posicaoCamera = posCam;  // Posicão da câmera no universo.
-
-    apontaCamera = lookAtCamera - posicaoCamera;
-
-    zCamera = -(apontaCamera) / glm::length(apontaCamera);
-    //glm::vec3 zCamera =  - glm::normalize(apontaCamera);
-    xCamera = glm::cross(upCamera, zCamera) / glm::length(glm::cross(upCamera, zCamera));
-    //glm::vec3 xCamera = glm::normalize(glm::cross(upCamera, zCamera));
-    yCamera = glm::cross(zCamera, xCamera);
-
-    bTransposta = glm::mat4(xCamera[0], xCamera[1], xCamera[2], 0,
-                            yCamera[0], yCamera[1], yCamera[2], 0,
-                            zCamera[0], zCamera[1], zCamera[2], 0,
-                            0, 0, 0, 1);
-    translacao = glm::mat4(1, 0, 0, -posicaoCamera[0],
-                           0, 1, 0, -posicaoCamera[1],
-                           0, 0, 1, -posicaoCamera[2],
-                           0, 0, 0, 1);
-
-    matrizView = bTransposta * translacao;
-
-    matrizModelView = matrizView * matrizModel;
-
-    matrizModelViewProj = matrizProjection * matrizModelView;
-
-}
-
 /*******************************************************************************
 * Desenho da geometria na "tela"
 ********************************************************************************/
 
 void DesenhaModelo(){
 
-    /*float raio = 10.0f;
-    tempo += 0.02;
-    obsX = sin(tempo) * raio;
-    obsZ = cos(tempo) * raio;
-    if(obsX >= 180 || obsZ >= 180)
-        tempo = obsX = obsZ = 0;
-
-    glm::vec3 posCam(obsX, obsY, obsZ);
-    defineCamera(posCam);*/
-
-    glm::mat4 matrizModelViewProjViewPort = matrizViewport * matrizModelViewProj;
+    //if(aux){
+    //    aux = false;
+    //    carregaMatrizes();
+    //}
 
 	// Carrega triângulos vértice a vértice
 	for(int i = 0; i < modelo->faceCount; i++){
@@ -580,26 +597,25 @@ void DesenhaModelo(){
 		v1[0] = modelo->vertexList[o->vertex_index[0]]->e[0];
 		v1[1] = modelo->vertexList[o->vertex_index[0]]->e[1];
 		v1[2] = modelo->vertexList[o->vertex_index[0]]->e[2];
-		v1[3] = (1 - (v1[2]/d)); //coordenada homogênea;
+		v1[3] = 1; //coordenada homogênea;
 
 		v2[0] = modelo->vertexList[o->vertex_index[1]]->e[0];
 		v2[1] = modelo->vertexList[o->vertex_index[1]]->e[1];
 		v2[2] = modelo->vertexList[o->vertex_index[1]]->e[2];
-		v2[3] = (1 - (v2[2]/d)); //coordenada homogênea;
+		v2[3] = 1; //coordenada homogênea;
 
 		v3[0] = modelo->vertexList[o->vertex_index[2]]->e[0];
 		v3[1] = modelo->vertexList[o->vertex_index[2]]->e[1];
 		v3[2] = modelo->vertexList[o->vertex_index[2]]->e[2];
-		v3[3] = (1 - (v3[2]/d)); //coordenada homogênea;
-
+		v3[3] = 1; //coordenada homogênea;
 
 		v1 = matrizModelViewProjViewPort * v1;
 		v2 = matrizModelViewProjViewPort * v2;
 		v3 = matrizModelViewProjViewPort * v3;
 
-		v1 = v1 / (1 - (v1[2]/d));
-		v2 = v2 / (1 - (v2[2]/d));
-		v3 = v3 / (1 - (v3[2]/d));
+		v1 = v1 / v1[3];
+		v2 = v2 / v2[3];
+		v3 = v3 / v3[3];
 
 		tPixel pixel1 = {(int) v1[0], (int) v1[1], {255, 255, 255, 255}}; // Pixel branco
 		tPixel pixel2 = {(int) v2[0], (int) v2[1], {255, 255, 255, 255}}; // Pixel branco
