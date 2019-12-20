@@ -139,7 +139,8 @@ __Outros parâmetros de teste utilizados em My OpenGL:__
 
 ## Resultados e possíveis melhoras
 
-Houve uma pequena dificuldade até se conseguir utilizar o carregador de malhas disponibilizado pelo professor. Também, muito infelizmente, como citado na seção anterior, um problema inesperado foi encontrado e não foi resolvido. Tentou-se algumas soluções como trocar as operações de pós-multiplicação por pré-multiplicação, linhas por colunas mas estas modificações apenas geravam outros problemas. No final das contas, não conseguiu-se identificar a natureza do problema e, por falta de tempo, o pipeline foi enviado assim mesmo. 
+Houve uma pequena dificuldade até se conseguir utilizar o carregador de malhas disponibilizado pelo professor.
+__Obs:__ Para aqueles que leram este repositório em 28 abril de 2019, o problema relatado na época ("câmera enferrujada") foi corrigido e as screenshots dos testes foram atualizadas. O tal problema estava na matriz de projeção __matrizProjection__, em que sua coordenada homogênea continha valor 0 (errado) em vez de 1 (correto), o que bagunçou a composição das matrizes.
 
 ## Referências
 
